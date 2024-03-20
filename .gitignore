@@ -1,0 +1,3 @@
+#Dot env eviroment variables
+.env
+.env.local
