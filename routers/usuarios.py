@@ -1,4 +1,4 @@
-from ratelimit import limits
+from .limiter import limiter
 from fastapi import APIRouter, HTTPException
 
 from db.usuarios import (
@@ -19,7 +19,7 @@ FIFTEEN_MINUTES = 900
 
 
 @router.get("/{usuario_id}")
-@limits(calls=20, period=FIFTEEN_MINUTES)
+@limiter.limit("1/second")
 def read_usuario(usuario_id: int):
     usuario = read_db_usuario(usuario_id)
     if usuario is None:
@@ -29,7 +29,7 @@ def read_usuario(usuario_id: int):
 
   
 @router.post("/")
-@limits(calls=20, period=FIFTEEN_MINUTES)
+@limiter.limit("1/second")
 def create_usuario(usuario: UsuarioCreate):
     try:
         usuario = create_db_usuario(usuario)

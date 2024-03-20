@@ -2,7 +2,7 @@ from fastapi import FastAPI, APIRouter
 from pydantic import BaseModel
 from routers.boletos import router as boletos_router
 from routers.usuarios import router as usuarios_router
-from router.limiter import limiter
+from routers.limiter import limiter
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 
