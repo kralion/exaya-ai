@@ -27,14 +27,14 @@ class BoletoCreate(BaseModel):
     viaje: str
     viajeId: str
     
-    
+# TODO: Add Session parameter for allowing only authenticated users to create a Boleto
 def create_db_boletos(boleto: BoletoCreate):
     try :
         supabase.table('boletos').insert([boleto]).execute()
     except Exception as e:
         print(e)
         return {"error": "Error al insertar el boleto"}
-    return {"message": "Boleto insertado correctamente"}
+    return {"message": "Boleto insertado correctamente", }
 
 def read_db_boleto(boleto_id: str):
     try :

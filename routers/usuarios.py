@@ -11,7 +11,7 @@ from db.usuarios import (
 router = APIRouter(
     prefix="/usuarios",
     tags=["usuarios"],
-    responses={404: {"description": "Not found"}},
+    responses={404: {"description": "El usuario no fue encontrado en la base de datos"}},
 )
 
 FIFTEEN_MINUTES = 900
@@ -24,7 +24,7 @@ def read_usuario(usuario_id: int):
     usuario = read_db_usuario(usuario_id)
     if usuario is None:
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
-    return usuario
+    return Usuario(**usuario.__dict__)
 
 
   

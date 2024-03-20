@@ -12,7 +12,7 @@ FIFTEEN_MINUTES = 900
 router = APIRouter(
     prefix="/boletos",
     tags=["boletos"],
-    responses={404: {"description": "Not found"}},
+    responses={404: {"description": "El boleto no fue encontrado en la base de datos"}},
 )
 
 
@@ -24,7 +24,7 @@ def read_boleto(boleto_id: int, boleto: Boleto):
         boleto = read_db_boleto(boleto_id)
         if boleto is None:
             raise HTTPException(status_code=404, detail="Boleto no encontrado")
-        return boleto
+        return Boleto(**boleto.__dict__)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
@@ -33,8 +33,8 @@ def read_boleto(boleto_id: int, boleto: Boleto):
 @limits(calls=20, period=FIFTEEN_MINUTES)
 def create_boleto(boleto: BoletoCreate):
     try:
-        boleto = create_db_boletos(boleto)
-        return boleto
+        create_db_boletos(boleto)
+        return {"message": "Boleto insertado correctamente"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     

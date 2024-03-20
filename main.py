@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from pydantic import BaseModel
 from routers.boletos import router as boletos_router
 from routers.usuarios import router as usuarios_router

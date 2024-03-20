@@ -30,6 +30,7 @@ class UsuarioCreate (BaseModel):
 
 # data, count = supabaseClient.table('usuarios').insert({"id": "assdu23921351", "username": "exaya", "password" : "Exaya_2024", "foto" : "https://cdn-icons-png.flaticon.com/128/6873/6873405.png", "apellidos" : "INC" , "nombres": "Exaya", "usuarioDni": "71780367", "sedeDelegacion": "Huancayo", "rol": "GUEST", "telefono":"914019629"}).execute()
 
+# TODO: Add Session parameter for allowing certain user to create a User, just ADMIN users can create a new user
 def read_db_usuario(usuario_id: str):
     try :
         usuario = supabase.table('usuarios').select("*").eq('id', usuario_id).execute()
