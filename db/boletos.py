@@ -1,16 +1,44 @@
 from db.db_config import supabase
+from pydantic import BaseModel
+from datetime import datetime
 
-def create_db_boleto(boleto):
-    try:
-        supabase.table("boletos").insert([boleto])
+class Boleto(BaseModel):
+    id : str
+    asiento: int
+    pasajeroDni: str
+    codigo: str
+    fechaRegistro: datetime
+    equipaje: str
+    precio: int
+    reservado: bool
+    telefonoCliente: str
+    viaje: str
+    viajeId: str
+    
+class BoletoCreate(BaseModel):
+    asiento: int
+    pasajeroDni: str
+    codigo: str
+    fechaRegistro: datetime
+    equipaje: str
+    precio: int
+    reservado: bool
+    telefonoCliente: str
+    viaje: str
+    viajeId: str
+    
+    
+def create_db_boletos(boleto: BoletoCreate):
+    try :
+        supabase.table('boletos').insert([boleto]).execute()
     except Exception as e:
         print(e)
         return {"error": "Error al insertar el boleto"}
     return {"message": "Boleto insertado correctamente"}
 
-def read_db_boleto(boleto_id):
-    try:
-        boleto = supabase.table("boletos").select("*").eq("id", boleto_id)
+def read_db_boleto(boleto_id: str):
+    try :
+        boleto = supabase.table('boletos').select("*").eq('id', boleto_id).execute()
     except Exception as e:
         print(e)
         return {"error": "Error al leer el boleto"}

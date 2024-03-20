@@ -8,10 +8,17 @@ from slowapi.errors import RateLimitExceeded
 
 
 app = FastAPI()
+test_router = APIRouter()
+    
+
 app.include_router(boletos_router)
 app.include_router(usuarios_router)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+@test_router.get("/test")
+async def test():
+    return {"message": "Hello, World"}
 
 class Item(BaseModel):
     name: str
